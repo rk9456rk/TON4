@@ -20,7 +20,7 @@
 (tuple) fibonacci_sequence (int n, int k) method_id {
   
   tuple ans = empty_tuple();
- {- int a = 0;
+  int a = 0;
   int b = 1;
   int i = 0;
 
@@ -32,13 +32,13 @@
     b = c;
     i = i + 1;
   }
-  while(i<=n+k)
+  while(i<n+k)
   { 
     ans~tpush(a);
     int c = a + b;
     a = b;
     b = c;
     i = i + 1;
-  } -}
+  } 
   return ans;
 }
