@@ -8,12 +8,49 @@
   Matrix can be rectangular where matrixA must to be of size n*m & matrixB of size m*p.
   After calculating the result matrix, the function should return final result (as tuple).
 -}
+forall X -> tuple convert_to_tuple (X x) asm "NOP";
+(int) tupleSize (tuple t) asm "TLEN";
 
 () recv_internal() {
 }
-
+(int) find_ValueAt(int i,int j, tuple matrix)
+{
+   tuple t = convert_to_tuple(matrix.at(i));
+    return t.at(j); 
+}
+(int) findColumn( tuple matrix)
+{
+   tuple t = convert_to_tuple(matrix.at(0));
+    return t.tupleSize();  
+}
 ;; testable
 (tuple) matrix_multiplier(tuple matrixA, tuple matrixB) method_id {
-  return null();
+  tuple ans= empty_tuple();
+  int n = matrixA.tupleSize();
+  int m = matrixB.tupleSize();
+  int p = findColumn(matrixB);
+  int i=0;
+  int j=0;
+
+  while(i<n)
+  { j=0;
+    tuple row= empty_tuple();
+    while(j<p)
+    { int k=0;
+      int aij=0;
+      while(k<m)
+      {
+        aij+= find_ValueAt(i,k,matrixA)*find_ValueAt(k,j,matrixB);
+        k+=1;
+      }
+     
+       row~tpush(aij);  
+        j+=1;
+    }
+     ans~tpush(row);
+        i+=1;
+  }
+
+  return ans;
 }
 
