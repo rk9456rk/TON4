@@ -13,7 +13,7 @@ forall X -> tuple convert_to_tuple (X x) asm "NOP";
 
 () recv_internal() {
 }
-(int) find_ValueAt(int i,int j, tuple matrix)
+(int) find_ValueAt(int i , int j, tuple matrix)
 {
    tuple t = convert_to_tuple(matrix.at(i));
     return t.at(j); 
@@ -33,7 +33,7 @@ forall X -> tuple convert_to_tuple (X x) asm "NOP";
   int j = 0;
 
   while( i < n )
-  { j=0;
+  { j = 0;
     tuple row = empty_tuple();
     while( j < p )
     { int k = 0;
@@ -45,7 +45,7 @@ forall X -> tuple convert_to_tuple (X x) asm "NOP";
       }
      
        row~tpush(aij);  
-        j+=1;
+        j += 1;
     }
      ans~tpush(row);
         i += 1;
