@@ -25,30 +25,30 @@ forall X -> tuple convert_to_tuple (X x) asm "NOP";
 }
 ;; testable
 (tuple) matrix_multiplier(tuple matrixA, tuple matrixB) method_id {
-  tuple ans= empty_tuple();
+  tuple ans = empty_tuple();
   int n = matrixA.tupleSize();
   int m = matrixB.tupleSize();
   int p = findColumn(matrixB);
-  int i=0;
-  int j=0;
+  int i = 0;
+  int j = 0;
 
-  while(i<n)
+  while( i < n )
   { j=0;
-    tuple row= empty_tuple();
-    while(j<p)
-    { int k=0;
-      int aij=0;
-      while(k<m)
+    tuple row = empty_tuple();
+    while( j < p )
+    { int k = 0;
+      int aij = 0;
+      while( k < m )
       {
-        aij+= find_ValueAt(i,k,matrixA)*find_ValueAt(k,j,matrixB);
-        k+=1;
+        aij += find_ValueAt(i,k,matrixA) * find_ValueAt(k,j,matrixB);
+        k += 1;
       }
      
        row~tpush(aij);  
         j+=1;
     }
      ans~tpush(row);
-        i+=1;
+        i += 1;
   }
 
   return ans;

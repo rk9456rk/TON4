@@ -11,6 +11,7 @@
 
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
+
   return begin_cell().end_cell();
 }
 
