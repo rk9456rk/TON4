@@ -15,6 +15,7 @@
 (int) tupleSize (tuple t) asm "TLEN";
 
 () recv_internal() {
+  
 }
 (tuple) convert_str_tuple( slice s)
 {
@@ -42,7 +43,7 @@
    int m = b.tupleSize();
    int i = 0;
    int r = 0;
-   while( (i < m ) | (i < n) )
+   while( (i < m ) & (i < n) )
    {
       int x = a.at(i) + b.at(i) + r;
       r = x~divmod(10);
@@ -118,6 +119,7 @@
     a = b;
     b = c;
     i = i + 1;
+    ~dump(i);
   } 
   return ans;
 }
