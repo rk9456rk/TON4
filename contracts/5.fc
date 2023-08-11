@@ -46,23 +46,26 @@
    while( (i < m ) & (i < n) )
    {
       int x = a.at(i) + b.at(i) + r;
-      r = x~divmod(10);
-      ans~tpush(x);
+      int y = x~divmod(10);
+      r = x;
+      ans~tpush(y);
       i += 1;
    }
    while( i < n )
    {
-     int x = a.at(i) + r;
-      r = x~divmod(10);
-      ans~tpush(x);
+      int x = a.at(i) + r;
+      int y = x~divmod(10);
+      r = x;
+      ans~tpush(y);
       i += 1;
    }
    while( i < m )
    {
      int x = b.at(i) + r;
-      r = x~divmod(10);
-      ans~tpush(x);
-      i += 1;
+     int y = x~divmod(10);
+     r = x;
+     ans~tpush(y);
+     i += 1;
    }
    if( r > 0 ) 
    {
@@ -98,7 +101,7 @@
    return ans;
 }
 ;; testable
-(tuple) fibonacci_sequence (int n, int k) method_id {
+(tuple) fibonacci_sequence(int n, int k) method_id {
   tuple ans = empty_tuple();
   slice a = "0";
   slice b = "1";
@@ -119,7 +122,6 @@
     a = b;
     b = c;
     i = i + 1;
-    ~dump(i);
   } 
   return ans;
 }
