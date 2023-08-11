@@ -17,28 +17,33 @@
   
 }
 
-(tuple) fibonacci_sequence (int n, int k) method_id {
+(tuple) fibonacci_sequence(int n, int k) method_id {
   
   tuple ans = empty_tuple();
   int a = 0;
   int b = 1;
   int i = 0;
 
-
-  while(i < n)
+  if( (i >= n) & (i < n + k) )
+    {  
+       ans~tpush(a);
+    }
+    i += 1;
+  if( (i >= n) & (i < n + k) )
+    {
+      ans~tpush(b);
+    }  
+    i += 1;
+  while( i < n + k )
   {
     int c = a + b;
     a = b;
     b = c;
+    if( (i >= n) & (i < n + k) )
+    {
+       ans~tpush(b);  
+    }
     i = i + 1;
   }
-  while(i < n + k)
-  { 
-    ans~tpush(a);
-    int c = a + b;
-    a = b;
-    b = c;
-    i = i + 1;
-  } 
   return ans;
 }
