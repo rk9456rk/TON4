@@ -8,6 +8,7 @@
 
 () recv_internal() {
 }
+
 int encryptIt(int x , int shift , int isEncypt )
 {  
    if( isEncypt == 0)
@@ -15,7 +16,7 @@ int encryptIt(int x , int shift , int isEncypt )
          shift = -1 * shift;
    }
 
-   if( (x < 91 ) &( x >= 65 ))
+   if( (x < 65 + 26 ) & ( x >= 65 ))
    { int y = (x - 65 + shift + 26);
       y = y~divmod(26);
      return ( 65 + y );
@@ -57,18 +58,28 @@ int encryptIt(int x , int shift , int isEncypt )
 }
 
 ;; testable
+int makeItPossitive( int n )
+{
+   int p = 26;
+   while ( n < 0)
+   {
+      n += p;
+      p += 26;
+   }
+   return n;
+}
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
-  
+  shift = makeItPossitive(shift);
   shift = shift~divmod(26);
   return formCell(text,shift,1);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
+  shift = makeItPossitive(shift);
   shift = shift~divmod(26);
   return formCell(text,shift,0);
 }
-
 
 
 
