@@ -48,11 +48,10 @@ int encryptIt(int x , int shift , int isEncypt )
       cur~store_uint( x,8); 
       }
         
-    {- repeat (s.slice_refs()) {
+     repeat (s.slice_refs()) {
           cell innerCell =  formCell(s~load_ref(),shift,isEncypt);
-           cur~store_ref(innerCell);
+           store_ref(cur,innerCell);
       }
-      -}
       cell ans = cur.end_cell() ;
       return ans;
 }
