@@ -8,15 +8,67 @@
 
 () recv_internal() {
 }
+int encryptIt(int x , int shift , int isEncypt )
+{  
+   if( isEncypt == 0)
+   {
+         shift = -1 * shift;
+   }
+
+   if( (x < 91 ) &( x >= 65 ))
+   { int y = (x - 65 + shift + 26);
+      y = y~divmod(26);
+     return ( 65 + y );
+   }
+   else
+   {
+     if( (x >= 97) & ( x < 97 + 26 ) )
+     {
+       int y = (x - 97 + shift + 26);
+       y = y~divmod(26);
+       return ( 97 + y);
+     }
+   }
+
+   return x;
+}
+
+
+(cell) formCell ( cell text ,int shift ,int isEncypt)
+{     
+      slice s = text.begin_parse();
+      slice s_only_data = s.preload_bits(s.slice_bits());
+      builder cur = begin_cell();
+
+      
+   
+     while (~ s_only_data.slice_empty?()) {
+      int char = s_only_data~load_uint(8);
+      int x = encryptIt(char,shift,isEncypt) ;
+      cur~store_uint( x,8); 
+      }
+        
+    {- repeat (s.slice_refs()) {
+          cell innerCell =  formCell(s~load_ref(),shift,isEncypt);
+           cur~store_ref(innerCell);
+      }
+      -}
+      cell ans = cur.end_cell() ;
+      return ans;
+}
 
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
-
-  return begin_cell().end_cell();
+  
+  
+  return formCell(text,shift,1);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
-  return begin_cell().end_cell();
+  return formCell(text,shift,0);
 }
+
+
+
 
