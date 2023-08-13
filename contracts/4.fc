@@ -59,12 +59,13 @@ int encryptIt(int x , int shift , int isEncypt )
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
   
-  
+  shift = shift~divmod(26);
   return formCell(text,shift,1);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
+  shift = shift~divmod(26);
   return formCell(text,shift,0);
 }
 
