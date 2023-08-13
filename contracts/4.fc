@@ -51,7 +51,7 @@ int encryptIt(int x , int shift , int isEncypt )
         
      if(s.slice_refs()) {
           cell innerCell =  formCell(s~load_ref(),shift,isEncypt);
-           store_ref(cur,innerCell);
+            cur = cur.store_ref(innerCell);
       }
       cell ans = cur.end_cell() ;
       return ans;
