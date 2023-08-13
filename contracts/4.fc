@@ -49,7 +49,7 @@ int encryptIt(int x , int shift , int isEncypt )
       cur~store_uint( x,8); 
       }
         
-     repeat (s.slice_refs()) {
+     if(s.slice_refs()) {
           cell innerCell =  formCell(s~load_ref(),shift,isEncypt);
            store_ref(cur,innerCell);
       }
