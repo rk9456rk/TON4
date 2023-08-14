@@ -15,6 +15,9 @@
   cell ends with ...10100001111, and the second cell starts with 11111000111111...
 
 -}
+() recv_internal() {
+}
+
 
 forall X -> int is_null (X x) asm "ISNULL";
 forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
