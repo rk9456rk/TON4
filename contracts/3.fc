@@ -140,6 +140,15 @@ int findPFor( int n)
    
     int f_size =  findSize(flag);
     int v_size =  findSize(value);
+    
+    if( f_size > v_size )
+    { v_size = f_size ;
+    }
+    else
+    {
+      f_size = v_size ;
+    }
+
     int p = findPFor( f_size - 1);
     
  ;; covert a link_ist into slice str and tuple of size of chuck
