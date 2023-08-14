@@ -16,11 +16,141 @@
 
 -}
 
-() recv_internal() {
-}
+forall X -> int is_null (X x) asm "ISNULL";
+forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
+forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
 
+(slice) find_In_Slice( slice s ,int flag , int value ,int s_size, int f_size)
+{   builder ans = begin_cell();
+    int i = 0;
+    int j = 0;
+    int curVal = 0;
+    int p = 1;
+    
+
+    while( j < f_size)
+    {
+      int char = s~load_uint(1);
+      curVal =  curVal * 2 + char ;
+      p *= 2;
+      j += 1;
+    }
+    int toFindNBit = p / 2;
+    while( i <= s_size - f_size)
+    {
+       if(curVal == flag)
+       {
+         ans~store_uint(value,f_size);
+        
+         i += f_size;
+         j = i;
+         curVal = 0;
+       }
+       else
+       {  int x = curVal / toFindNBit;
+          ans~store_uint(x,1);
+          curVal = (curVal - (x * toFindNBit) );
+          i += 1;
+       }
+
+       while ( (j - i < f_size)  & ( i <= s_size - f_size ))
+       {
+          int char = s~load_uint(1);
+         curVal = curVal * 2 + char;
+         j += 1;
+          
+       }
+    }
+
+    while ( j < s_size)
+    {
+        int char = s~load_uint(1);
+         curVal = curVal * 2 + char;
+         j += 1;
+    }
+    if( j - i > 0)
+    {  int oo1 = j - i ;
+      ans~store_uint(curVal, oo1 );
+    }
+    ;;ans~store_uint(139,30);
+   return ans.end_cell().begin_parse();
+}
+global slice ansStr;
+global tuple gChunkSize;
+
+(cell) formChunk( int cur , int n)
+{
+  builder build1 = begin_cell();
+  int toPut = gChunkSize.at(cur);
+  int i = 0;
+  while(i < toPut)
+  {
+  int str = ansStr~load_uint(1);
+  str += 48;
+  build1~store_uint( str , 8 );
+
+  i += 1;
+  }
+  if(cur + 1 == n)
+  {
+    return build1.end_cell();
+  }
+  cell innerCell = formChunk(cur + 1, n);
+  return build1.store_ref(innerCell).end_cell();
+           
+}
 ;; testable
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
-  return begin_cell().end_cell();
-}
+ ;; covert a link_ist into slice str and tuple of size of chuck
+ ;; we can use 1 bit represent 1 or 0
+  builder cur = begin_cell();
+  tuple chuckSize = empty_tuple();
+   tuple stack = null();
+   int s_size = 0;
+   int n = 0;
+    ;; bring the main cell into the stack to process it in the loop
+    stack~push_back(linked_list);
+    ;; do it until stack is not null
+    while (~ stack.is_null()) {
+        ;; get the cell from the stack and convert it to a slice to be able to process it
+        slice s = stack~pop_back().begin_parse();
 
+        ;; do something with s data
+        slice s_only_data = s.preload_bits(s.slice_bits());
+        int cnt = 0;
+        while (~ s_only_data.slice_empty?()) {
+          int char = s_only_data~load_uint(8);
+          int x = char - 48;
+          cur~store_uint( x,1); 
+          cnt += 1;
+        }
+        s_size += cnt;
+        chuckSize~tpush(cnt);
+        n += 1;
+        ;; if the current slice has any refs, add them to stack
+        repeat (s.slice_refs()) {
+            stack~push_back(s~load_ref());
+        }
+    }
+    slice str = cur.end_cell().begin_parse();
+    int flagNum = 0;
+    int valueNum = 0;
+    int p = 1;
+    int f_size = 0;
+    while( flag > 0 )
+    {
+       int f1 = flag~divmod(10);
+       int v1 = value~divmod(10);
+       flagNum = f1 * p + flagNum ;
+       valueNum = v1 * p + valueNum ;
+       p *= 2; 
+       f_size += 1;
+    }
+   
+    ansStr = find_In_Slice(str,flagNum,valueNum,s_size,f_size);
+    gChunkSize = chuckSize;
+
+
+    
+   return formChunk(0, n );
+}
