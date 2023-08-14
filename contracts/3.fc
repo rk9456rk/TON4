@@ -136,21 +136,15 @@ global tuple gChunkSize;
         }
     }
     slice str = cur.end_cell().begin_parse();
-    int flagNum = 0;
-    int valueNum = 0;
-    int p = 1;
+    int flagNum = flag;
     int f_size = 0;
-    while( flag > 0 )
+    while( flagNum > 0 )
     {
-       int f1 = flag~divmod(10);
-       int v1 = value~divmod(10);
-       flagNum = f1 * p + flagNum ;
-       valueNum = v1 * p + valueNum ;
-       p *= 2; 
+       flagNum~divmod(2); 
        f_size += 1;
     }
    
-    ansStr = find_In_Slice(str,flagNum,valueNum,s_size,f_size);
+    ansStr = find_In_Slice(str,flag,value,s_size,f_size);
     gChunkSize = chuckSize;
 
 
