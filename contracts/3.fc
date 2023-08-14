@@ -137,10 +137,12 @@ global tuple gChunkSize;
     }
     slice str = cur.end_cell().begin_parse();
     int flagNum = flag;
+    int valueNum = value;
     int f_size = 0;
-    while( flagNum > 0 )
+    while( (flagNum > 0) | (valueNum > 0 ))
     {
        flagNum~divmod(2); 
+       valueNum~divmod(2);
        f_size += 1;
     }
    
