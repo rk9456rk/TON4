@@ -17,6 +17,7 @@
 -}
 () recv_internal() {
 }
+
 forall X -> int is_null (X x) asm "ISNULL";
 forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
 forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
@@ -102,7 +103,7 @@ int findPFor( int n)
     }
   }
 
- cell innerCell = begin_cell().end_cell() ;
+ cell innerCell = begin_cell().end_cell();
  int curToAssign = curVal;
  int isInner = 0;
  if( s.slice_refs())
@@ -128,7 +129,10 @@ int findPFor( int n)
        build1~store_uint(x,8);
      }
   }
-  if( isInner == 1) { build1 = build1.store_ref(innerCell);}
+   
+  ;;if( isInner == 1){ 
+  build1 = build1.store_ref(innerCell);
+ ;;}
    cell ans = build1.end_cell(); 
   return ( ans , passPrev);
 }
