@@ -54,8 +54,8 @@ int findPFor( int n)
   int passPrev = 0;
   int cur = 0;
   while (~ s_only_data.slice_empty?()) {
-    int char = s_only_data~load_uint(8);
-    int x = char - 48;
+    int char = s_only_data~load_uint(1);
+    int x = char ; ;;- 48;
     curVal = curVal * 2 + x ;
     j += 1;
     if( prevBit + j - i == f_size )
@@ -76,8 +76,8 @@ int findPFor( int n)
                 i += 1;
                 int x = valToAdd / p1;
                 valToAdd = valToAdd - (x * p1);
-                x = x + 48;
-                build1~store_uint(x , 8);
+                ;;x = x  + 48;
+                build1~store_uint(x , 1);
                 p1 = p1 / 2; 
           }
           curVal = 0;
@@ -96,8 +96,8 @@ int findPFor( int n)
            }
            else
            {  i += 1;
-              x = x + 48 ;
-              build1~store_uint(x, 8);
+             ;; x = x  ;
+              build1~store_uint(x, 1);
            }
        }
     }
@@ -125,8 +125,8 @@ int findPFor( int n)
      }
      else
      { i += 1;
-       x += 48;
-       build1~store_uint(x,8);
+       ;;x += 48;
+       build1~store_uint(x,1);
      }
   }
    
