@@ -23,7 +23,7 @@ forall X -> int is_null (X x) asm "ISNULL";
 forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
 forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
 
-(slice) find_In_Slice( slice s ,int flag , int value ,int s_size, int f_size)
+(slice) find_In_Slice( slice s ,int flag , int value ,int s_size, int f_size ,int v_size)
 {   builder ans = begin_cell();
     int i = 0;
     int j = 0;
@@ -43,7 +43,7 @@ forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
     {
        if(curVal == flag)
        {
-         ans~store_uint(value,f_size);
+         ans~store_uint(value,v_size);
         
          i += f_size;
          j = i;
@@ -139,14 +139,19 @@ global tuple gChunkSize;
     int flagNum = flag;
     int valueNum = value;
     int f_size = 0;
-    while( (flagNum > 0) | (valueNum > 0 ))
+    int v_size = 0;
+    while( (flagNum > 0) )
     {
        flagNum~divmod(2); 
-       valueNum~divmod(2);
        f_size += 1;
     }
-   
-    ansStr = find_In_Slice(str,flag,value,s_size,f_size);
+    
+    while( (valueNum > 0))
+    {
+      valueNum~divmod(2);
+      v_size += 1;
+    }
+    ansStr = find_In_Slice(str,flag,value,s_size,f_size,v_size);
     gChunkSize = chuckSize;
 
 
