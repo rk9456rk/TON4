@@ -130,9 +130,9 @@ int findPFor( int n)
      }
   }
    
-  ;;if( isInner == 1){ 
+  if( isInner == 1){ 
   build1 = build1.store_ref(innerCell);
- ;;}
+ }
    cell ans = build1.end_cell(); 
   return ( ans , passPrev);
 }
@@ -142,7 +142,7 @@ int findPFor( int n)
     int f_size =  findSize(flag);
     int v_size =  findSize(value);
     int p = findPFor( f_size - 1);
-    int t = flag;
+    
  ;; covert a link_ist into slice str and tuple of size of chuck
  ;; we can use 1 bit represent 1 or 0
     cell ans = begin_cell().end_cell();
