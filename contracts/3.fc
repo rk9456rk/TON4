@@ -33,7 +33,7 @@ int findSize( int n)
   }
   return cnt;
 }
-int findPFor( int n)
+int findPFor( int n )
 {
   int p = 1;
   while( n > 0)
@@ -138,23 +138,8 @@ int findPFor( int n)
 }
 ;; testable
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
-   
-    int flagNum = 0;
-    int valueNum = 0;
-    int p = 1;
-    while( flag > 0 )
-    {
-       int f1 = flag~divmod(10);
-       int v1 = value~divmod(10);
-       flagNum = f1 * p + flagNum ;
-       valueNum = v1 * p + valueNum ;
-       p *= 2; 
-    }
-    
-    
-    
-    int f_size =  findSize(flagNum);
-    int v_size =  findSize(valueNum);
+    int f_size =  findSize(flag);
+    int v_size =  findSize(value);
     
     if( f_size > v_size )
     { v_size = f_size ;
@@ -171,7 +156,7 @@ int findPFor( int n)
     cell ans = begin_cell().end_cell();
     int temp = 0 ;
     
-   ( ans , temp ) = find_flag(0,0,linked_list,flagNum,valueNum,f_size,v_size,p);
+   ( ans , temp ) = find_flag(0,0,linked_list,flag,value,f_size,v_size,p);
 
    return ans;
 }
