@@ -36,7 +36,7 @@ int findSize( int n)
 int findPFor( int n )
 {
   int p = 1;
-  while( n > 0)
+  while( n > 0 )
   {
     n -= 1;
     p *= 2;
@@ -154,6 +154,6 @@ int findPFor( int n )
     cell ans = begin_cell().end_cell();
     int temp = 0 ;
     
-   ( ans , temp ) = find_flag(0,0,linked_list,flag,value,f_size,v_size,p);
+   ( ans , temp ) = find_flag(0,0,linked_list,value,flag,f_size,v_size,p);
    return ans;
 }
