@@ -85,6 +85,7 @@ int findPFor( int n )
           curVal -= x * pf ;
           curBit -= 1;
           bit1 += 1;
+          dataToAdd = x;
         }
      }
        if( s_only_data.slice_empty?() )
