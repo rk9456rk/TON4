@@ -56,8 +56,7 @@ int findPFor( int n )
   int cur = 0;
   while (~ s_only_data.slice_empty?()) {
     int char = s_only_data~load_uint(1);
-    int x = char ; ;;- 48;
-    curVal = ( curVal * 2 ) + x ;
+    curVal = ( curVal * 2 ) + char ;
     j += 1;
     if( (prevBit + j - i) == f_size )
     {
@@ -77,7 +76,7 @@ int findPFor( int n )
                 i += 1;
                 int x = valToAdd / p1;
                 valToAdd = valToAdd - ( x * p1 );
-                ;;x = x  + 48;
+                
                 build1~store_uint(x , 1);
                 p1 = p1 / 2; 
           }
@@ -97,7 +96,6 @@ int findPFor( int n )
            }
            else
            {  i += 1;
-             ;; x = x  ;
               build1~store_uint(x, 1);
            }
        }
@@ -109,7 +107,7 @@ int findPFor( int n )
  int isInner = 0;
  if( s.slice_refs())
  { cell toPass = s~load_ref();
- ( innerCell , curToAssign ) = find_flag(curVal,prevBit + j - i,
+ ( innerCell , curToAssign ) = find_flag( curVal,prevBit + j - i,
                                  toPass ,flag,value,f_size,v_size,p);
   isInner = 1;
  }
@@ -130,9 +128,9 @@ int findPFor( int n )
      }
   }
    
-  ;;if( isInner == 1 ){ 
+  if( isInner == 1 ){ 
   build1 = build1.store_ref(innerCell);
-  ;;}
+  }
    cell ans = build1.end_cell(); 
   return ( ans , passPrev);
 }
