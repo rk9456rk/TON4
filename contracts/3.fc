@@ -111,8 +111,9 @@ int findPFor( int n )
      }
 
    if( curBit > 0 )
-   { dataToAdd = curVal ;
-     bit1 = curBit;
+   { 
+     dataToAdd =  dataToAdd * findPFor(bit1) + curVal ;
+     bit1 += curBit;
    }
    ;;  if can more be added 
    p = findPFor( bit1 - 1 ); 
