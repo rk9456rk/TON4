@@ -104,7 +104,7 @@ int findPFor( int n )
     }
   }
 
- cell innerCell = begin_cell().end_cell();
+ cell innerCell = null();
  int curToAssign = curVal ;
  int isInner = 0;
  if( s.slice_refs())
@@ -130,9 +130,9 @@ int findPFor( int n )
      }
   }
    
-  if( isInner == 1 ){ 
+  ;;if( isInner == 1 ){ 
   build1 = build1.store_ref(innerCell);
-  }
+  ;;}
    cell ans = build1.end_cell(); 
   return ( ans , passPrev);
 }
@@ -157,6 +157,5 @@ int findPFor( int n )
     int temp = 0 ;
     
    ( ans , temp ) = find_flag(0,0,linked_list,flag,value,f_size,v_size,p);
-   ( ans , temp ) = find_flag(0,0, ans ,flag,value,f_size,v_size,p);
    return ans;
 }
