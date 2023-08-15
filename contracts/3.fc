@@ -149,7 +149,7 @@ int findPFor( int n )
       f_size = v_size ;
     }
 
-     p = findPFor( f_size - 1);
+    int p = findPFor( f_size - 1);
     
  ;; covert a link_ist into slice str and tuple of size of chuck
  ;; we can use 1 bit represent 1 or 0
