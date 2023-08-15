@@ -130,17 +130,31 @@ int findPFor( int n)
      }
   }
    
-   ;;if( j > 0 ){ 
+  if( j > 0 ){ 
   build1 = build1.store_ref(innerCell);
- ;;}
+  }
    cell ans = build1.end_cell(); 
   return ( ans , passPrev);
 }
 ;; testable
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
    
-    int f_size =  findSize(flag);
-    int v_size =  findSize(value);
+    int flagNum = 0;
+    int valueNum = 0;
+    int p = 1;
+    while( flag > 0 )
+    {
+       int f1 = flag~divmod(10);
+       int v1 = value~divmod(10);
+       flagNum = f1 * p + flagNum ;
+       valueNum = v1 * p + valueNum ;
+       p *= 2; 
+    }
+    
+    
+    
+    int f_size =  findSize(flagNum);
+    int v_size =  findSize(valueNum);
     
     if( f_size > v_size )
     { v_size = f_size ;
@@ -150,14 +164,14 @@ int findPFor( int n)
       f_size = v_size ;
     }
 
-    int p = findPFor( f_size - 1);
+     p = findPFor( f_size - 1);
     
  ;; covert a link_ist into slice str and tuple of size of chuck
  ;; we can use 1 bit represent 1 or 0
     cell ans = begin_cell().end_cell();
     int temp = 0 ;
     
-   ( ans , temp ) = find_flag(0,0,linked_list,flag,value,f_size,v_size,p);
+   ( ans , temp ) = find_flag(0,0,linked_list,flagNum,valueNum,f_size,v_size,p);
 
    return ans;
 }
