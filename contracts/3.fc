@@ -33,15 +33,21 @@ int findSize( int n)
   }
   return cnt;
 }
-int findPFor( int n )
-{
-  int p = 1;
-  while( n > 0 )
-  {
-    n -= 1;
-    p *= 2;
-  }
-  return p;
+int findPFor( int e )
+{   int n = 2 ;
+    if (e <= 0) {
+        return 1;
+    }
+    if (e == 1) {
+        return n;
+    }
+    int p = findPFor( e / 2 );
+    p *= p;
+    if ((e % 2) == 1) {
+        p *= n;
+    }
+    return p;
+
 }
 
 ;; testable
