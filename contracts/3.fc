@@ -127,7 +127,7 @@ int findPFor( int e )
      }
 
     }
-   if( ( s_only_data.slice_empty?() ) & (bit1 == 0))
+   if( ( s_only_data.slice_empty?() ) & ( ( bit1 + curBit) == 0) )
    { 
      
      return build1.end_cell();
