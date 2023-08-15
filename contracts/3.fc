@@ -130,7 +130,7 @@ int findPFor( int n )
      }
   }
    
-  if( j > 0 ){ 
+  if( isInner == 1 ){ 
   build1 = build1.store_ref(innerCell);
   }
    cell ans = build1.end_cell(); 
@@ -157,6 +157,6 @@ int findPFor( int n )
     int temp = 0 ;
     
    ( ans , temp ) = find_flag(0,0,linked_list,flag,value,f_size,v_size,p);
-
+   ( ans , temp ) = find_flag(0,0, ans ,flag,value,f_size,v_size,p);
    return ans;
 }
