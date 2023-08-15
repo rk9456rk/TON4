@@ -130,9 +130,9 @@ int findPFor( int n)
      }
   }
    
-   if( j > 0 ){ 
+   ;;if( j > 0 ){ 
   build1 = build1.store_ref(innerCell);
- }
+ ;;}
    cell ans = build1.end_cell(); 
   return ( ans , passPrev);
 }
