@@ -64,7 +64,7 @@ global slice s_only_data;
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
       if( cnt + bit1 < 1023)
-       {
+       {  cnt += bit1 ;
           build1~store_uint(dataToAdd,bit1);
           bit1 = 0;
           dataToAdd = 0;
@@ -88,7 +88,7 @@ global slice s_only_data;
      if( curBit == f_size)
      {
         if( curVal == flag)
-        {
+        {   
             dataToAdd = value ;
             bit1 += v_size;
             curVal = 0;
@@ -119,7 +119,7 @@ global slice s_only_data;
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
       if( cnt + bit1 < 1023)
-       {
+       { cnt += bit1 ;
           build1~store_uint(dataToAdd,bit1);
           bit1 = 0;
           dataToAdd = 0;
@@ -146,10 +146,11 @@ global slice s_only_data;
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
       if( cnt + bit1 < 1023)
-       {
+       {  cnt += bit1 ;
           build1~store_uint(dataToAdd,bit1);
           bit1 = 0;
           dataToAdd = 0;
+        
        }
        else
        {
