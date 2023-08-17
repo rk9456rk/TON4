@@ -63,12 +63,21 @@ global slice s_only_data;
       p = findPFor( bit1 - 1 ); 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
+      if( cnt + bit1 < 1023)
+       {
+          build1~store_uint(dataToAdd,bit1);
+          bit1 = 0;
+          dataToAdd = 0;
+       }
+       else
+       {
       bit1 -= 1;
       cnt += 1;
       int x = dataToAdd / p;
       dataToAdd -= (x * p);
       p = p / 2;
       build1~store_uint( x, 1);
+       }
      }
 
 
@@ -109,12 +118,21 @@ global slice s_only_data;
       p = findPFor( bit1 - 1 ); 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
+      if( cnt + bit1 < 1023)
+       {
+          build1~store_uint(dataToAdd,bit1);
+          bit1 = 0;
+          dataToAdd = 0;
+       }
+       else
+       {
       bit1 -= 1;
       cnt += 1;
       int x = dataToAdd / p;
       dataToAdd -= (x * p);
       p = p / 2;
       build1~store_uint( x, 1);
+       }
      }
 
       if( curBit > 0 )
@@ -127,12 +145,21 @@ global slice s_only_data;
       p = findPFor( bit1 - 1 ); 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
+      if( cnt + bit1 < 1023)
+       {
+          build1~store_uint(dataToAdd,bit1);
+          bit1 = 0;
+          dataToAdd = 0;
+       }
+       else
+       {
       bit1 -= 1;
       cnt += 1;
       int x = dataToAdd / p;
       dataToAdd -= (x * p);
       p = p / 2;
       build1~store_uint( x, 1);
+       }
      }
 
     }
@@ -144,8 +171,8 @@ global slice s_only_data;
 
    cell InnerCell = find_ReturnCell(flag,value,f_size,v_size,pf,curVal,curBit,dataToAdd,bit1);
 
-   build1 = build1.store_ref(InnerCell);
-   return build1.end_cell();
+   
+   return build1.store_ref(InnerCell).end_cell();
 }
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
     int f_size =  findSize(flag);
