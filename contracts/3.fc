@@ -31,17 +31,17 @@ int findSize( int n)
   return cnt;
 }
 int findPFor( int e )
-{   int n = 2 ;
-    if (e <= 0) {
-        return 1;
-    }
-    if (e == 1) {
-        return n;
-    }
-    int p = findPFor( e / 2 );
-    p *= p;
-    if ((e % 2) == 1) {
-        p *= n;
+{   int p = 1;
+    int n = 1;
+
+
+    while (e > 0)
+    {
+       
+       int x = e~divmod(2);
+       if( x == 1)
+        { p *= n ; }
+       n *= n ;
     }
     return p;
 
@@ -54,6 +54,7 @@ global slice s_only_data;
                         int processLeft , int leftBit, 
                        int dataToAdd, int bit1 )
 { builder build1 = begin_cell();
+  
   int cnt = 0 ;
   int p = 0 ;
   int curVal = processLeft;
