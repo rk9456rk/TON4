@@ -32,7 +32,7 @@ int findSize( int n)
 }
 int findPFor( int e )
 {   int p = 1;
-    int n = 1;
+    int n = 2;
 
 
     while (e > 0)
