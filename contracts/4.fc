@@ -9,12 +9,9 @@
 () recv_internal() {
 }
 
-int encryptIt(int x , int shift , int isEncypt )
+int encryptIt(int x , int shift )
 {  
-   if( isEncypt == 0)
-   {
-         shift = -1 * shift;
-   }
+   
 
    if( (x < 65 + 26 ) & ( x >= 65 ))
    { int y = (x - 65 + shift + 26);
@@ -35,7 +32,7 @@ int encryptIt(int x , int shift , int isEncypt )
 }
 
 
-(cell) formCell ( cell text ,int shift ,int isEncypt)
+(cell) formCell ( cell text ,int shift )
 {     
       slice s = text.begin_parse();
       slice s_only_data = s.preload_bits(s.slice_bits());
@@ -45,12 +42,12 @@ int encryptIt(int x , int shift , int isEncypt )
    
      while (~ s_only_data.slice_empty?()) {
       int char = s_only_data~load_uint(8);
-      int x = encryptIt(char,shift,isEncypt) ;
+      int x = encryptIt(char,shift) ;
       cur~store_uint( x,8); 
       }
         
      if(s.slice_refs()) {
-          cell innerCell =  formCell(s~load_ref(),shift,isEncypt);
+          cell innerCell =  formCell(s~load_ref(),shift );
             cur = cur.store_ref(innerCell);
       }
       cell ans = cur.end_cell() ;
@@ -71,14 +68,15 @@ int makeItPossitive( int n )
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
   shift = makeItPossitive(shift);
   shift = shift~divmod(26);
-  return formCell(text,shift,1);
+  return formCell(text,shift);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
+  shift = -1 * shift ;
   shift = makeItPossitive(shift);
   shift = shift~divmod(26);
-  return formCell(text,shift,0);
+  return formCell(text,shift);
 }
 
 
