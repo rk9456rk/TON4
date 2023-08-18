@@ -57,11 +57,11 @@ int encryptIt(int x , int shift )
 ;; testable
 int makeItPossitive( int n )
 {
-   int p = 26;
-   while ( n < 0)
-   {
-      n += p;
-      p += 26;
+   if( n < 0)
+   { 
+     int y = ( - n ) / 26 ;
+
+     n += ( y + 1 ) * 26; 
    }
    return n;
 }
