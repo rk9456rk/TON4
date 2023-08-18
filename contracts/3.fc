@@ -168,7 +168,7 @@ global int cntAns;
      }
 
     }
-   storeAns~tpush(build1);
+   storeAns~tpush( build1 );
    cntAns += 1;
   }
   return 1;   
@@ -182,9 +182,13 @@ global int cntAns;
 
    storeAns = empty_tuple();
    cntAns = 0;  
-   find_ReturnCell(flag,value,f_size,v_size,pf,0,0,0,0);
+   int x = find_ReturnCell(flag,value,f_size,v_size,pf,0,0,0,0);
  ;; covert a link_ist into slice str and tuple of size of chuck
  ;; we can use 1 bit represent 1 or 0
+    if( cntAns == 0 ) 
+   {
+    return linked_list;
+   }
     cell ans = storeAns.at(cntAns - 1).end_cell();
     cntAns -= 1;
     while( cntAns > 0 )
