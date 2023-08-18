@@ -123,7 +123,8 @@ global slice s_only_data;
           bit1 = 0;
           dataToAdd = 0;
        } 
-       else{ 
+       else
+       { 
       p = findPFor( bit1 - 1 ); 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
@@ -151,7 +152,8 @@ global slice s_only_data;
           bit1 = 0;
           dataToAdd = 0;
        } 
-       else{
+       else
+       {
       p = findPFor( bit1 - 1 ); 
 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
