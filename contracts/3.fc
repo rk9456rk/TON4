@@ -67,6 +67,7 @@ global slice s_only_data;
           bit1 = 0;
           dataToAdd = 0;
        }  
+       else {
      p = findPFor( bit1 - 1 );  
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
@@ -81,7 +82,7 @@ global slice s_only_data;
       build1~store_uint( x, 1);
        
      }
-
+       }
 
      if( cnt < 1023)
      { int char = s_only_data~load_uint(1);
@@ -121,7 +122,8 @@ global slice s_only_data;
           build1~store_uint(dataToAdd,bit1);
           bit1 = 0;
           dataToAdd = 0;
-       }  
+       } 
+       else{ 
       p = findPFor( bit1 - 1 ); 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
@@ -134,7 +136,7 @@ global slice s_only_data;
       build1~store_uint( x, 1);
        
      }
-
+       }
       if( curBit > 0 )
      { 
      dataToAdd =   curVal ;
@@ -149,6 +151,7 @@ global slice s_only_data;
           bit1 = 0;
           dataToAdd = 0;
        } 
+       else{
       p = findPFor( bit1 - 1 ); 
 
      while( ( cnt < 1023 ) & ( bit1 > 0) )
@@ -162,7 +165,7 @@ global slice s_only_data;
       build1~store_uint( x, 1);
        
      }
-
+       }
     }
    if( ( s_only_data.slice_empty?() ) & ( ( bit1 + curBit ) == 0) )
    { 
