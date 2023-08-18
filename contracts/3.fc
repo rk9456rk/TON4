@@ -54,7 +54,8 @@ global slice s_only_data;
                         int processLeft , int leftBit, 
                        int dataToAdd, int bit1 )
 { builder build1 = begin_cell();
-  
+  int x = 0;
+  int char = 0;
   int cnt = 0 ;
   int p = 0 ;
   int curVal = processLeft;
@@ -71,12 +72,9 @@ global slice s_only_data;
      p = findPFor( bit1 - 1 );  
      while( ( cnt < 1023 ) & ( bit1 > 0) )
      {
-     
-      
-       
       bit1 -= 1;
       cnt += 1;
-      int x = dataToAdd / p;
+       x = dataToAdd / p;
       dataToAdd -= (x * p);
       p = p / 2;
       build1~store_uint( x, 1);
@@ -85,7 +83,7 @@ global slice s_only_data;
        }
 
      if( cnt < 1023)
-     { int char = s_only_data~load_uint(1);
+     {  char = s_only_data~load_uint(1);
      curVal = curVal * 2 + char ;
      curBit += 1;
      if( curBit == f_size)
@@ -98,7 +96,7 @@ global slice s_only_data;
             curBit = 0;
         }
         else
-        { int x = curVal / pf ;
+        {  x = curVal / pf ;
           curVal -= x * pf ;
           curBit -= 1;
           bit1 += 1;
@@ -130,7 +128,7 @@ global slice s_only_data;
       
       bit1 -= 1;
       cnt += 1;
-      int x = dataToAdd / p;
+       x = dataToAdd / p;
       dataToAdd -= (x * p);
       p = p / 2;
       build1~store_uint( x, 1);
@@ -139,27 +137,27 @@ global slice s_only_data;
        }
       if( curBit > 0 )
      { 
-     dataToAdd =   curVal ;
-     bit1 = curBit;
-      curBit = 0;
-      curVal = 0;
-      if( (cnt + bit1 < 1023) & bit1 > 0 )
-       {  cnt += bit1 ;
-          build1~store_uint(dataToAdd,bit1);
-          bit1 = 0;
-          dataToAdd = 0;
+     ;;dataToAdd =   curVal ;
+     ;;bit1 = curBit;
+      ;;curBit = 0;
+      ;;curVal = 0;
+      if( (cnt + curBit < 1023) & curBit > 0 )
+       {  cnt += curBit ;
+          build1~store_uint(curVal,curBit);
+          curBit = 0;
+          curVal = 0;
        } 
        else
        {
-      p = findPFor( bit1 - 1 ); 
+      p = findPFor( curBit - 1 ); 
 
-     while( ( cnt < 1023 ) & ( bit1 > 0) )
+     while( ( cnt < 1023 ) & ( curBit > 0) )
      {
       
-      bit1 -= 1;
+      curBit -= 1;
       cnt += 1;
-      int x = dataToAdd / p;
-      dataToAdd -= (x * p);
+       x = curVal / p;
+      curVal -= (x * p);
       p = p / 2;
       build1~store_uint( x, 1);
        
