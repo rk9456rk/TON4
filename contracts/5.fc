@@ -23,6 +23,7 @@
   int a = 0;
   int b = 1;
   int i = 0;
+  int c = 0;
 
   if( (i >= n) & (i < n + k) )
     {  
@@ -34,16 +35,23 @@
       ans~tpush(b);
     }  
     i += 1;
-  while( i < n + k )
+  while( i < n  )
   {
-    int c = a + b;
+    c = a + b;
     a = b;
     b = c;
-    if( (i >= n) & (i < n + k) )
-    {
-       ans~tpush(b);  
-    }
     i = i + 1;
+  }
+  while ( i < n + k )
+  {
+    c = a + b;
+    a = b;
+    b = c;
+    
+    ans~tpush(b);  
+    
+    i = i + 1;
+
   }
   return ans;
 }
