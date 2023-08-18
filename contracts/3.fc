@@ -45,9 +45,10 @@ int findPFor( int e )
 }
 global slice s;
 global slice s_only_data;
+global int pf ;
 ;; testable
 (cell) find_ReturnCell( int flag ,int value ,
-                        int f_size ,int v_size , int pf,
+                        int f_size ,int v_size , 
                         int curVal , int curBit, 
                        int dataToAdd, int bit1 )
 { builder build1 = begin_cell();
@@ -57,7 +58,7 @@ global slice s_only_data;
   int p = 0 ;
   while ( ( cnt < 1023) & (~ s_only_data.slice_empty?()) ) {
        
-      if( (cnt + bit1 < 1023) & bit1 > 0 )
+      if( ( bit1 > 0)  & (cnt + bit1 < 1023) )
        {  cnt += bit1 ;
           build1~store_uint(dataToAdd,bit1);
           bit1 = 0;
@@ -65,7 +66,7 @@ global slice s_only_data;
        }  
        else {
      p = findPFor( bit1 - 1 );  
-     while( ( cnt < 1023 ) & ( bit1 > 0) )
+     while(  ( bit1 > 0 )  &  ( cnt < 1023 )  )
      {
       bit1 -= 1;
       cnt += 1;
@@ -109,7 +110,7 @@ global slice s_only_data;
   ;; if break by empty condition  
     if( cnt < 1023)
     { 
-      if( (cnt + bit1 < 1023) & bit1 > 0 )
+      if( (bit1 > 0) & ((cnt + bit1 < 1023)))
        {  cnt += bit1 ;
           build1~store_uint(dataToAdd,bit1);
           bit1 = 0;
@@ -132,7 +133,7 @@ global slice s_only_data;
        }
       if( curBit > 0 )
      { 
-      if( (cnt + curBit < 1023) & curBit > 0 )
+      if(  ( curBit > 0 ) & ( cnt < 1023 )  )
        {  cnt += curBit ;
           build1~store_uint(curVal,curBit);
           curBit = 0;
@@ -142,7 +143,7 @@ global slice s_only_data;
        {
       p = findPFor( curBit - 1 ); 
 
-     while( ( cnt < 1023 ) & ( curBit > 0) )
+     while( ( curBit > 0) & ( cnt < 1023 )  )
      {
       
       curBit -= 1;
@@ -159,7 +160,7 @@ global slice s_only_data;
       
     }
     
-   if( ( s_only_data.slice_empty?() ) & ( ( bit1 + curBit ) == 0) )
+   if(  s_only_data.slice_empty?() &  ( bit1 + curBit ) == 0 )
    { 
      
      return build1.end_cell();
@@ -168,18 +169,18 @@ global slice s_only_data;
 
    
    return build1.store_ref(
-    find_ReturnCell(flag,value,f_size,v_size,pf,curVal,curBit,dataToAdd,bit1)
+    find_ReturnCell(flag,value,f_size,v_size,curVal,curBit,dataToAdd,bit1)
       ).end_cell();
    }
 }
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
     int f_size =  findSize(flag);
     int v_size =  findSize(value);
-    int pf = findPFor(f_size - 1);
+     pf = findPFor(f_size - 1);
      s = linked_list.begin_parse();
      s_only_data = s.preload_bits(s.slice_bits());
     
-    cell ans = find_ReturnCell(flag,value,f_size,v_size,pf,0,0,0,0);
+    cell ans = find_ReturnCell(flag,value,f_size,v_size,0,0,0,0);
  ;; covert a link_ist into slice str and tuple of size of chuck
  ;; we can use 1 bit represent 1 or 0
     
