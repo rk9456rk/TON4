@@ -35,9 +35,6 @@ int findPFor( int e )
     if (e <= 0) {
         return 1;
     }
-    if (e == 1) {
-        return n;
-    }
     int p = findPFor( e / 2 );
     p *= p;
     if ((e % 2) == 1) {
@@ -51,15 +48,13 @@ global slice s_only_data;
 ;; testable
 (cell) find_ReturnCell( int flag ,int value ,
                         int f_size ,int v_size , int pf,
-                        int processLeft , int leftBit, 
+                        int curVal , int curBit, 
                        int dataToAdd, int bit1 )
 { builder build1 = begin_cell();
   int x = 0;
   int char = 0;
   int cnt = 0 ;
   int p = 0 ;
-  int curVal = processLeft;
-  int curBit = leftBit;
   while ( ( cnt < 1023) & (~ s_only_data.slice_empty?()) ) {
        
       if( (cnt + bit1 < 1023) & bit1 > 0 )
@@ -137,10 +132,6 @@ global slice s_only_data;
        }
       if( curBit > 0 )
      { 
-     ;;dataToAdd =   curVal ;
-     ;;bit1 = curBit;
-      ;;curBit = 0;
-      ;;curVal = 0;
       if( (cnt + curBit < 1023) & curBit > 0 )
        {  cnt += curBit ;
           build1~store_uint(curVal,curBit);
@@ -167,18 +158,19 @@ global slice s_only_data;
       
       
     }
+    
    if( ( s_only_data.slice_empty?() ) & ( ( bit1 + curBit ) == 0) )
    { 
      
      return build1.end_cell();
    }
-
-   
+   else {
 
    
    return build1.store_ref(
     find_ReturnCell(flag,value,f_size,v_size,pf,curVal,curBit,dataToAdd,bit1)
       ).end_cell();
+   }
 }
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
     int f_size =  findSize(flag);

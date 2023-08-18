@@ -11,23 +11,21 @@
 
 int encryptIt(int x , int shift )
 {  
-   
-
-   if( (x < 65 + 26 ) & ( x >= 65 ))
-   { int y = (x - 65 + shift );
-      y = y~divmod(26);
-     return ( 65 + y );
-   }
-   else
-   {
-     if( (x >= 97) & ( x < 97 + 26 ) )
+   if( (x >= 97) & ( x < 97 + 26 ) )
      {
        int y = (x - 97 + shift );
        y = y~divmod(26);
        return ( 97 + y);
      }
+    else
+    {
+   if( (x < 65 + 26 ) & ( x >= 65 ))
+   { int y = (x - 65 + shift );
+      y = y~divmod(26);
+     return ( 65 + y );
    }
-
+    }  
+ 
    return x;
 }
 

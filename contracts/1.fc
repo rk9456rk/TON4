@@ -5,35 +5,34 @@
   the subtree (branch) whose hash equals the received hash, the root cell of
   this branch should be returned. Return empty cell if the branch is not found.
 -}
-
+forall X -> int is_null (X x) asm "ISNULL";
+forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
+forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
 () recv_internal() {
 }
-(int , cell ) find_by_dfs(int hash , cell tree ) {
-  
-   if( tree.cell_hash() == hash)
-   {
-     return ( 1 , tree );
-   }
-   slice s = tree.begin_parse();
-   int x1 = 0;
-   cell z = null();
-    repeat( s.slice_refs() ) {
-      
-           (x1,z) = find_by_dfs( hash ,s~load_ref() );
-           if( x1 == 1 )
-           {
-             return ( x1 , z );
-           }
-        }
-     return (0 , begin_cell().end_cell());   
-}
+
 ;; testable
 (cell) find_branch_by_hash(int hash, cell tree) method_id {
   
     ;; creating tuple with no data, which plays the role of stack
-    int x1 = 0;
-    cell z = null();
-  ( x1 , z ) = find_by_dfs(hash,tree);
+    tuple stack = null();
+    ;; bring the main cell into the stack to process it in the loop
+    stack~push_back(tree);
+    ;; do it until stack is not null
+    while (~ stack.is_null()) {
+        ;; get the cell from the stack and convert it to a slice to be able to process it
+        cell c = stack~pop_back();
 
-  return z ;
+        ;; do something with s data
+        if(c.cell_hash() == hash )
+        { return c;
+        }
+        slice s = c.begin_parse();
+        ;; if the current slice has any refs, add them to stack
+        repeat (s.slice_refs()) {
+            stack~push_back(s~load_ref());
+        }
+    }
+
+  return begin_cell().end_cell();
 }
