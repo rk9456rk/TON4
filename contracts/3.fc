@@ -20,7 +20,7 @@
 
 
 
-int findSize( int n)
+int findSize( int n )
 {
   int cnt = 0;
   while( n > 0 )
@@ -48,17 +48,21 @@ int findPFor( int e )
 }
 global slice s;
 global slice s_only_data;
+global tuple storeAns ;
+global int cntAns;
 ;; testable
-(cell) find_ReturnCell( int flag ,int value ,
+(int) find_ReturnCell( int flag ,int value ,
                         int f_size ,int v_size , int pf,
-                        int processLeft , int leftBit, 
+                        int curVal , int curBit, 
                        int dataToAdd, int bit1 )
-{ builder build1 = begin_cell();
+{ 
+  while( (~ s_only_data.slice_empty?() ) | ( ( bit1 + curBit ) > 0) )
+  {
+  builder build1 = begin_cell();
   
   int cnt = 0 ;
   int p = 0 ;
-  int curVal = processLeft;
-  int curBit = leftBit;
+ 
   while ( ( cnt < 1023) & (~ s_only_data.slice_empty?()) ) {
        
      p = findPFor( bit1 - 1 );  
@@ -164,18 +168,10 @@ global slice s_only_data;
      }
 
     }
-   if( ( s_only_data.slice_empty?() ) & ( ( bit1 + curBit ) == 0) )
-   { 
-     
-     return build1.end_cell();
-   }
-
-   
-
-   
-   return build1.store_ref(
-    find_ReturnCell(flag,value,f_size,v_size,pf,curVal,curBit,dataToAdd,bit1)
-      ).end_cell();
+   storeAns~tpush( build1 );
+   cntAns += 1;
+  }
+  return 1;   
 }
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
     int f_size =  findSize(flag);
@@ -183,10 +179,23 @@ global slice s_only_data;
     int pf = findPFor(f_size - 1);
      s = linked_list.begin_parse();
      s_only_data = s.preload_bits(s.slice_bits());
-    
-    cell ans = find_ReturnCell(flag,value,f_size,v_size,pf,0,0,0,0);
+
+   storeAns = empty_tuple();
+   cntAns = 0;  
+   int x = find_ReturnCell(flag,value,f_size,v_size,pf,0,0,0,0);
  ;; covert a link_ist into slice str and tuple of size of chuck
  ;; we can use 1 bit represent 1 or 0
-    
+    if( cntAns == 0 ) 
+   {
+    return linked_list;
+   }
+    cell ans = storeAns.at(cntAns - 1).end_cell();
+    cntAns -= 1;
+    while( cntAns > 0 )
+    {
+       ans = storeAns.at(cntAns - 1).store_ref(ans).end_cell();
+       cntAns -= 1;
+    }
+
    return ans;
 }
