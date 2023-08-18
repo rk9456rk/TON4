@@ -17,7 +17,7 @@
    slice s = tree.begin_parse();
    int x1 = 0;
    cell z = null();
-   while ( s.slice_refs() ) {
+    repeat( s.slice_refs() ) {
       
            (x1,z) = find_by_dfs( hash ,s~load_ref() );
            if( x1 == 1 )
